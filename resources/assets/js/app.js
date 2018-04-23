@@ -17,13 +17,14 @@ import ConfirmModal from './components/_partials/ConfirmModal.vue';
 import Home from './components/Home.vue';
 import ClientProfile from './components/ClientProfile.vue';
 import ClientForm from './components/ClientForm.vue';
+import StylistForm from './components/StylistForm.vue';
 import EntryForm from './components/EntryForm.vue';
 import UserForm from './components/UserForm.vue';
 import Users from './components/Users.vue';
 import Stylists from './components/Stylists.vue';
 import Login from './components/Login.vue';
 
-axios.defaults.baseURL = 'http://4m-team.com/api';
+axios.defaults.baseURL = 'http://julians-hair-studio.loc/api';
 
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
@@ -84,7 +85,7 @@ const router = new VueRouter({
 		meta: {
 			auth: true
 		}
-	}/*, {
+	}, {
 		path: '/stylist-add',
 		name: 'stylist_create',
 		component: StylistForm,
@@ -98,7 +99,7 @@ const router = new VueRouter({
 		meta: {
 			auth: true
 		}
-	}*/, {
+	}, {
 		path: '/users',
 		name: 'users_list',
 		component: Users,

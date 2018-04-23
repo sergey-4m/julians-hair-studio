@@ -55,9 +55,9 @@
                     	</span>
                     </a>
                     <ul class="treeview-menu">
-                        <router-link :to="{name: 'users_create'}" tag="li">
+                        <router-link :to="{name: 'stylist_create'}" tag="li">
                             <a>
-                            	<i class="fa fa-circle-o"></i> Create User
+                            	<i class="fa fa-circle-o"></i> Create Stylist
                             </a>
                         </router-link>
                     </ul>

@@ -35,6 +35,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 	Route::post('stylists-list', 'API\StylistsController@list');
 	Route::get('stylists-list', 'API\StylistsController@loadForSelect');
 	Route::get('stylists-records/{id}', 'API\StylistsController@load');
+	Route::post('stylists-records/create', 'API\StylistsController@create');
 	Route::post('stylists-records/update/{id}', 'API\StylistsController@update');
 	Route::post('stylists-records/delete/{id}', 'API\StylistsController@delete');
 });

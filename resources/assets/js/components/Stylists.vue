@@ -36,7 +36,7 @@ export default {
             { title: 'Home Number', field: 'phone', sortable: true },
             { title: 'Mobile Number', field: 'mobile', sortable: true },
             { title: 'Operation', tdComp: DetailsChallenge, visible: true },
-            { field: 'id', explain: '/stylists-records', visible: false }
+            { field: 'id', visible: false }
         ],
         data: [],
         total: 0,
