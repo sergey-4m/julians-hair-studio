@@ -16,6 +16,8 @@ class CreateServiceItemsTable extends Migration
         Schema::create('service_items', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
+            $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 
