@@ -78,6 +78,7 @@
             	</div>
             </section>
         </div>
+        <app-footer />
     </div>
 </template>
 

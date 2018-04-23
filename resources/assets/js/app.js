@@ -79,6 +79,13 @@ const router = new VueRouter({
 			auth: false
 		}
 	}, {
+		path: '/service-items',
+		name: 'service_items',
+		component: Services,
+		meta: {
+			auth: true
+		}
+	}, {
 		path: '/stylists',
 		name: 'stylists_list',
 		component: Stylists,

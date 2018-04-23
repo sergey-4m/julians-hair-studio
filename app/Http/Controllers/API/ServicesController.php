@@ -176,4 +176,9 @@ class ServicesController extends Controller
 			'status' => 'ok',
 		]);
 	}
+
+	public function servicesList()
+	{
+		
+	}
 }
