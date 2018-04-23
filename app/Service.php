@@ -7,8 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Service extends Model
 {
     protected $fillable = [
-    	'date_at', 'brand', 'bleach', 'tint', 'peroxide_volume', 'service', 'perm', 'charge'
+    	'date_at', 'brand', 'bleach', 'tint', 'peroxide_volume', 'perm', 'charge'
     ];
+
+    public function service()
+    {
+        return $this->hasMany('App\ServiceItem');
+    }
 
     public function client()
     {

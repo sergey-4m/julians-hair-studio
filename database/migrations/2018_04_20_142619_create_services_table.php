@@ -21,7 +21,7 @@ class CreateServicesTable extends Migration
             $table->string('bleach');
             $table->string('tint');
             $table->string('peroxide_volume');
-            $table->string('service');
+            $table->integer('service_id')->unsigned();
             $table->string('perm');
             $table->double('charge');
             $table->integer('client_id')->unsigned();
@@ -30,6 +30,10 @@ class CreateServicesTable extends Migration
             $table->engine = 'InnoDB';
         });
         Schema::table('services', function (Blueprint $table) {
+            $table->foreign('service_id')
+                ->references('id')
+                ->on('clients')
+                ->onDelete('cascade');
             $table->foreign('client_id')
                 ->references('id')
                 ->on('clients')

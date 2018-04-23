@@ -15,10 +15,12 @@ import AppFooter from './components/_partials/AppFooter.vue';
 import SidebarMenu from './components/_partials/SidebarMenu.vue';
 import ConfirmModal from './components/_partials/ConfirmModal.vue';
 import Home from './components/Home.vue';
+import Services from './components/Services.vue';
 import ClientProfile from './components/ClientProfile.vue';
 import ClientForm from './components/ClientForm.vue';
 import StylistForm from './components/StylistForm.vue';
 import EntryForm from './components/EntryForm.vue';
+import ServiceForm from './components/ServiceForm.vue';
 import UserForm from './components/UserForm.vue';
 import Users from './components/Users.vue';
 import Stylists from './components/Stylists.vue';
@@ -82,6 +84,20 @@ const router = new VueRouter({
 		path: '/service-items',
 		name: 'service_items',
 		component: Services,
+		meta: {
+			auth: true
+		}
+	}, {
+		path: '/service-item-add',
+		name: 'service_items_add',
+		component: ServiceForm,
+		meta: {
+			auth: true
+		}
+	}, {
+		path: '/service-item/:id',
+		name: 'service_items_edit',
+		component: ServiceForm,
 		meta: {
 			auth: true
 		}

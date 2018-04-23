@@ -12,21 +12,6 @@
             </div>
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">MAIN NAVIGATION</li>
-                <!--router-link :to="{name: 'home'}" tag="li" class="treeview">
-                	<a>
-	                    <i class="fa fa-address-book"></i> <span>Client Service Records</span>
-	                </a>
-	                <span class="pull-right-container">
-                    	<i class="fa fa-angle-left pull-right"></i>
-                    </span>
-	                <ul class="treeview-menu">
-                		<router-link :to="{name: 'cs_create'}" tag="li">
-                			<a>
-	                			<i class="fa fa-circle-o"></i> <span>Create Record</span>
-	                		</a>
-                		</router-link>
-	                </ul>
-                </router-link-->
                 <router-link :to="{name: 'home'}" tag="li" class="treeview">
                     <a>
                     	<i class="fa fa-address-book"></i> Client Service Records
@@ -42,11 +27,21 @@
                         </router-link>
                     </ul>
                 </router-link>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-book"></i> <span>Services</span>
+                <router-link :to="{name: 'service_items'}" tag="li" class="treeview">
+                    <a>
+                        <i class="fa fa-book"></i> Services 
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
                     </a>
-                </li>
+                    <ul class="treeview-menu">
+                        <router-link :to="{name: 'service_items_add'}" tag="li">
+                            <a>
+                                <i class="fa fa-circle-o"></i> Add Service
+                            </a>
+                        </router-link>
+                    </ul>
+                </router-link>
                 <router-link :to="{name: 'stylists_list'}" tag="li" class="treeview">
                     <a>
                     	<i class="fa fa-cut"></i> Stylists

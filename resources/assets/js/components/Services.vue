@@ -24,13 +24,36 @@
 </template>
 
 <script>
+import DetailsChallenge from './comps/DetailsChallenge';
+
 export default {
 	data() {
 		return {
-			service: {
-				
-			}
+            columns: [
+                { title: 'Service', field: 'title', sortable: true},
+                { title: 'Operation', tdComp: DetailsChallenge, visible: true },
+                { field: 'id', visible: false }
+            ],
+            data: [],
+            total: 0,
+            query: {},
+            xprops: {
+                apiUri: '/service-items',
+                redirectPath: 'service_items',
+                editPath: 'service_items_edit'
+            }
 		};
-	}
+	},
+    created() {
+        let that = this;
+        axios.get('/service-items').then((resp) => {
+            if (resp.data.serviceItems) {
+                that.data = resp.data.serviceItems;
+            }
+        });
+    },
+    methods: {
+
+    }
 }
 </script>

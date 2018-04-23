@@ -54,8 +54,10 @@ class ServicesController extends Controller
 			$records = \DB::table('services')
 				->select(
 					'services.*', 
-					\DB::raw('CONCAT(stylists.first_name, " ", stylists.last_name) stylist_name')
+					\DB::raw('CONCAT(stylists.first_name, " ", stylists.last_name) stylist_name'),
+					'service_items.title AS service'
 				)
+				->join('service_items', 'service_items.id', '=', 'services.service_id')
 				->join('stylists', 'stylists.id', '=', 'services.stylist_id')
 				->where('services.client_id', '=', $id)
 				->get();
@@ -84,7 +86,7 @@ class ServicesController extends Controller
 			$service->bleach = request('bleach', '');
 			$service->tint = request('tint', '');
 			$service->peroxide_volume = request('peroxide', '');
-			$service->service = request('service');
+			$service->service_id = request('service_id');
 			$service->perm = request('perm', '');
 			$service->charge = request('charge');
 			$service->client_id = $client->id;

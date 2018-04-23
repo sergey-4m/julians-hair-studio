@@ -44,13 +44,10 @@
             						</div>
             						<div class="form-group">
             							<label>Service</label>
-            							<select class="form-control" id="service" v-model="service.service">
-            								<option value="Full Head & Foils">Full Head & Foils</option>
-            								<option value="1/2 Head Foils">1/2 Head Foils</option>
-            								<option value="Tint">Tint</option>
-            								<option value="Roots Only">Roots Only</option>
-            								<option value="T-Section">T-Section</option>
-            								<option value="Perm">Perm</option>
+            							<select class="form-control" id="service" v-model="service.service_id">
+                                            <option v-for="item in serviceItems" v-bind:value="item.id">
+                                                {{ item.title }}
+                                            </option>
             							</select>
             						</div>
             						<div class="form-group">
@@ -91,12 +88,13 @@ export default {
 				bleach: '',
 				tint: '',
 				peroxide: '',
-				service: '',
+				service_id: 0,
 				stylist_id: 0,
 				charge: 0
 			},
 			stylists: [],
-			submitPath: ''
+			submitPath: '',
+            serviceItems: []
 		};
 	},
 	created() {
@@ -106,6 +104,11 @@ export default {
 				that.stylists = resp.data.stylists;
 			}
 		});
+        axios.get('/service-items').then((resp) => {
+            if (resp.data.serviceItems) {
+                that.serviceItems = resp.data.serviceItems;
+            }
+        });
 	},
 	mounted() {
 		$('#date_at').datepicker({
