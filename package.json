@@ -25,6 +25,7 @@
     "vue-template-compiler": "^2.5.16"
   },
   "dependencies": {
+    "@websanova/vue-auth": "^2.21.8-beta",
     "bootstrap": "^3.3.7",
     "bootstrap-colorpicker": "^2.5.1",
     "bootstrap-datepicker": "^1.7.0",

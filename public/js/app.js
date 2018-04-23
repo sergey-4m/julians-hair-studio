@@ -13454,7 +13454,7 @@ window.jQuery = __webpack_require__(31);
 
 
 
-__WEBPACK_IMPORTED_MODULE_2_axios___default.a.defaults.baseURL = 'http://julians-hair-studio.loc/api';
+__WEBPACK_IMPORTED_MODULE_2_axios___default.a.defaults.baseURL = 'http://4m-team.com/api';
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["default"]);
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_3_vue_axios___default.a, __WEBPACK_IMPORTED_MODULE_2_axios___default.a);
@@ -16303,14 +16303,14 @@ module.exports = function () {
 
         success = data.success;
 
-        data.success = function () {
+        data.success = function (res) {
 
             // Reshuffle tokens here...
             __token.set.call(this, this.options.tokenImpersonateName, this.token.call(this));
             __token.set.call(this, this.options.tokenDefaultName, token);
 
             if (success) {
-                success.call(this);
+                success.call(this, res);
             }
         };
 
@@ -16903,7 +16903,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(7).default
-var update = add("9a4a9dc4", content, false, {});
+var update = add("8078d304", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -17041,7 +17041,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(7).default
-var update = add("5cccb5e8", content, false, {});
+var update = add("ed405028", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -17140,7 +17140,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(7).default
-var update = add("99410828", content, false, {});
+var update = add("62c11c0c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -20334,7 +20334,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(7).default
-var update = add("2c614428", content, false, {});
+var update = add("7aa75570", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -21018,7 +21018,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(7).default
-var update = add("9aaa3754", content, false, {});
+var update = add("6efbf036", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -21817,7 +21817,7 @@ if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(7).default
-var update = add("5c74eb04", content, false, {});
+var update = add("20a4369e", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
