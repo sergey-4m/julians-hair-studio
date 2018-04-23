@@ -19,8 +19,8 @@
                 </div>
             </section>
         </div>
-        <app-footer />
         <confirm-modal />
+        <app-footer />
     </div>
 </template>
 

@@ -28,7 +28,10 @@ Route::group(['middleware' => 'auth:api'], function(){
 	Route::post('service-records/create', 'API\ServicesController@create');
 	Route::post('service-records/update/{id}', 'API\ServicesController@update');
 	Route::post('service-records/delete/{id}', 'API\ServicesController@delete');
+	Route::get('user/{id}', 'API\UsersController@loadUser');
 	Route::post('users-list', 'API\UsersController@list');
+	Route::post('user-create', 'API\UsersController@create');
+	Route::post('user-update/{id}', 'API\UsersController@update');
 	Route::post('stylists-list', 'API\StylistsController@list');
 	Route::get('stylists-list', 'API\StylistsController@loadForSelect');
 	Route::get('stylists-records/{id}', 'API\StylistsController@load');

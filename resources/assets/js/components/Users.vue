@@ -11,7 +11,7 @@
                     <div class="col-xs-12">
                         <div class="box">
                             <div class="box-body">
-                                <datatable v-bind="$data" />
+                                <datatable v-bind="$data" filterable/>
                             </div>
                         </div>
                     </div>
@@ -23,17 +23,26 @@
 </template>
 
 <script>
+import DetailsChallenge from './comps/DetailsChallenge';
+
 export default {
     data: () => ({
         columns: [
             { title: 'Admin Type', field: 'role', sortable: true},
             { title: 'Username', field: 'username', sortable: true },
             { title: 'Email', field: 'email', sortable: true },
-            { title: 'Permissions', field: 'status', sortable: true }
+            { title: 'Permissions', field: 'status', sortable: true },
+            { title: 'Operation', tdComp: DetailsChallenge, visible: true },
+            { field: 'id', visible: false }
         ],
         data: [],
         total: 0,
-        query: {}
+        query: {},
+        xprops: {
+            apiUri: '/user-update',
+            redirectPath: 'users_list',
+            editPath: 'users_edit'
+        }
     }),
     watch: {
         query: {
