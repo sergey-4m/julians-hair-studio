@@ -13554,6 +13554,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["a"] = ({
 	data: function data() {
@@ -32432,24 +32433,24 @@ var render = function() {
                                   )
                                 }
                               }
-                            }),
-                            _vm._v(" "),
-                            _c(
-                              "span",
-                              {
-                                directives: [
-                                  {
-                                    name: "show",
-                                    rawName: "v-show",
-                                    value: _vm.errors.has("charge"),
-                                    expression: "errors.has('charge')"
-                                  }
-                                ],
-                                staticClass: "help-block text-danger"
-                              },
-                              [_vm._v(_vm._s(_vm.errors.first("charge")))]
-                            )
-                          ])
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: _vm.errors.has("charge"),
+                                  expression: "errors.has('charge')"
+                                }
+                              ],
+                              staticClass: "help-block text-danger"
+                            },
+                            [_vm._v(_vm._s(_vm.errors.first("charge")))]
+                          )
                         ]
                       )
                     ]),
@@ -32934,12 +32935,6 @@ var render = function() {
                           _c("input", {
                             directives: [
                               {
-                                name: "validate",
-                                rawName: "v-validate",
-                                value: { is: _vm.c_password },
-                                expression: "{ is: c_password }"
-                              },
-                              {
                                 name: "model",
                                 rawName: "v-model",
                                 value: _vm.user.password,
@@ -32947,7 +32942,11 @@ var render = function() {
                               }
                             ],
                             staticClass: "form-control",
-                            attrs: { type: "password", id: "password" },
+                            attrs: {
+                              type: "password",
+                              id: "password",
+                              name: "password"
+                            },
                             domProps: { value: _vm.user.password },
                             on: {
                               input: function($event) {
@@ -32981,35 +32980,68 @@ var render = function() {
                         ]
                       ),
                       _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", [_vm._v("Repeat password:")]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.c_password,
-                              expression: "c_password"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "password",
-                            id: "c_password",
-                            name: "c_password"
-                          },
-                          domProps: { value: _vm.c_password },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                      _c(
+                        "div",
+                        {
+                          staticClass: "form-group",
+                          class: { "has-error": _vm.errors.has("c_password") }
+                        },
+                        [
+                          _c("label", [_vm._v("Repeat password:")]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "validate",
+                                rawName: "v-validate",
+                                value: "required|confirmed:password",
+                                expression: "'required|confirmed:password'"
+                              },
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.user.c_password,
+                                expression: "user.c_password"
                               }
-                              _vm.c_password = $event.target.value
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "password",
+                              id: "c_password",
+                              name: "c_password"
+                            },
+                            domProps: { value: _vm.user.c_password },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.user,
+                                  "c_password",
+                                  $event.target.value
+                                )
+                              }
                             }
-                          }
-                        })
-                      ]),
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: _vm.errors.has("c_password"),
+                                  expression: "errors.has('c_password')"
+                                }
+                              ],
+                              staticClass: "help-block text-danger"
+                            },
+                            [_vm._v(_vm._s(_vm.errors.first("c_password")))]
+                          )
+                        ]
+                      ),
                       _vm._v(" "),
                       _c(
                         "div",

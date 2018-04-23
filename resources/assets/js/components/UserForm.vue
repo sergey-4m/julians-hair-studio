@@ -25,12 +25,13 @@
 	        						</div>
 	        						<div class="form-group" :class="{'has-error': errors.has('password') }">
 	        							<label>Password:</label>
-	        							<input type="password" v-validate="{ is: c_password }" class="form-control" id="password" v-model="user.password">
+	        							<input type="password" class="form-control" id="password" name="password" v-model="user.password">
 	        							<span v-show="errors.has('password')" class="help-block text-danger">{{ errors.first('password') }}</span>
 	        						</div>
-	        						<div class="form-group">
+	        						<div class="form-group" :class="{'has-error': errors.has('c_password') }">
 	        							<label>Repeat password:</label>
-	        							<input type="password" class="form-control" id="c_password" name="c_password" v-model="c_password">
+	        							<input type="password" class="form-control" v-validate="'required|confirmed:password'" id="c_password" name="c_password" v-model="user.c_password">
+	        							<span v-show="errors.has('c_password')" class="help-block text-danger">{{ errors.first('c_password') }}</span>
 	        						</div>
 	        						<div class="form-group" :class="{'has-error': errors.has('status') }">
 	        							<label>Status:</label>
