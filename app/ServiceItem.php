@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class ServiceItem extends Model
 {
-    //
+	protected $fillable = ['title'];
 }
