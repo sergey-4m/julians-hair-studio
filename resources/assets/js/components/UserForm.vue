@@ -13,28 +13,32 @@
             				<div class="box-header with-border"></div>
             				<form role="form" @submit.prevent="submitData" method="post">
             					<div class="box-body">
-	            					<div class="form-group">
+	            					<div class="form-group" :class="{'has-error': errors.has('username') }">
 	        							<label>Username:</label>
-	        							<input type="text" class="form-control" id="username" v-model="user.username">
+	        							<input type="text" v-validate="'required:true'" class="form-control" name="username" id="username" v-model="user.username">
+	        							<span v-show="errors.has('username')" class="help-block text-danger">{{ errors.first('username') }}</span>
 	        						</div>
-	        						<div class="form-group">
+	        						<div class="form-group" :class="{'has-error': errors.has('email') }">
 	        							<label>Email:</label>
-	        							<input type="email" class="form-control" id="email" v-model="user.email">
+	        							<input type="email" v-validate="'required|email'" class="form-control" id="email" name="email" v-model="user.email">
+	        							<span v-show="errors.has('email')" class="help-block text-danger">{{ errors.first('email') }}</span>
 	        						</div>
-	        						<div class="form-group">
+	        						<div class="form-group" :class="{'has-error': errors.has('password') }">
 	        							<label>Password:</label>
-	        							<input type="password" class="form-control" id="password" v-model="user.password">
+	        							<input type="password" v-validate="{ is: c_password }" class="form-control" id="password" v-model="user.password">
+	        							<span v-show="errors.has('password')" class="help-block text-danger">{{ errors.first('password') }}</span>
 	        						</div>
 	        						<div class="form-group">
 	        							<label>Repeat password:</label>
-	        							<input type="password" class="form-control" id="c_password" v-model="user.c_password">
+	        							<input type="password" class="form-control" id="c_password" name="c_password" v-model="c_password">
 	        						</div>
-	        						<div class="form-group">
+	        						<div class="form-group" :class="{'has-error': errors.has('status') }">
 	        							<label>Status:</label>
-	        							<select class="form-control" id="status" v-model="user.status">
+	        							<select class="form-control" v-validate="'required:true'" name="status" id="status" v-model="user.status">
 	        								<option value="open">Open</option>
 	        								<option value="locked">Locked</option>
 	        							</select>
+	        							<span v-show="errors.has('status')" class="help-block text-danger">{{ errors.first('status') }}</span>
 	        						</div>
 	        						<div class="form-group">
 	        							<label>IP Address (If locked):</label>
@@ -66,6 +70,7 @@ export default {
 				status: '',
 				ip: ''
 			},
+			c_password: '',
 			isNew: false
 		};
 	},
@@ -82,11 +87,15 @@ export default {
 	},
 	methods: {
 		submitData() {
-			let apiPath = this.$route.params.id ? '/user-update/' + this.$route.params.id : '/user-create';
-			let router = this.$router;
-			axios.post(apiPath, this.user).then((resp) => {
-				if (resp.data.user) {
-					router.push({name:'users_list'});
+			this.$validator.validateAll().then((result) => {
+				if (result) {
+					let apiPath = this.$route.params.id ? '/user-update/' + this.$route.params.id : '/user-create';
+					let router = this.$router;
+					axios.post(apiPath, this.user).then((resp) => {
+						if (resp.data.user) {
+							router.push({name:'users_list'});
+						}
+					});
 				}
 			});
 		}

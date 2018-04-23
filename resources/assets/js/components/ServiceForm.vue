@@ -13,9 +13,10 @@
             				<div class="box-header with-border"></div>
             				<form role="form" @submit.prevent="submitData" method="post">
                                 <div class="box-body">
-                                    <div class="form-group">
+                                    <div class="form-group" :class="{'has-error': errors.has('title') }">
                                         <label>Service Name</label>
-                                        <input type="text" class="form-control" v-model="service.title" placeholder="Service Name">
+                                        <input type="text" v-validate="'required|alpha_num'" class="form-control" name="title" v-model="service.title" placeholder="Service Name">
+                                        <span v-show="errors.has('title')" class="help-block text-danger">{{ errors.first('title') }}</span>
                                     </div>
                                 </div>
                                 <div class="box-footer">
@@ -52,12 +53,16 @@ export default {
     },
     methods: {
         submitData() {
-            let router = this.$router;
-            let apiPath = (this.$route.params.id) ? '/service-item/update/' + this.$route.params.id : '/service-item/create';
-            axios.post(apiPath, this.service).then((resp) => {
-                console.log(resp);
-                if (resp.data.serviceItem) {
-                    router.push({name: 'service_items'});
+            this.$validator.validateAll().then((result) => {
+                if (result) {
+                    let router = this.$router;
+                    let apiPath = (this.$route.params.id) ? '/service-item/update/' + this.$route.params.id : '/service-item/create';
+                    axios.post(apiPath, this.service).then((resp) => {
+                        console.log(resp);
+                        if (resp.data.serviceItem) {
+                            router.push({name: 'service_items'});
+                        }
+                    });
                 }
             });
         }

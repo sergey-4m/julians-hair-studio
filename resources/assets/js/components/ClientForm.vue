@@ -13,26 +13,30 @@
             				<div class="box-header with-border"></div>
             				<form role="form" @submit.prevent="submitData" method="post">
             					<div class="box-body">
-            						<div class="form-group">
+            						<div class="form-group" :class="{'has-error': errors.has('last_name') }">
             							<label for="last_name">Surname</label>
-            							<input type="text" class="form-control" v-model="client.last_name" placeholder="Surname">
+            							<input type="text" v-validate="'required|alpha'" class="form-control" name="last_name" v-model="client.last_name" placeholder="Surname">
+            							<span v-show="errors.has('last_name')" class="help-block text-danger">{{ errors.first('last_name') }}</span>
             						</div>
-            						<div class="form-group">
+            						<div class="form-group" :class="{'has-error': errors.has('first_name') }">
             							<label for="first_name">First Name</label>
-            							<input type="text" class="form-control" v-model="client.first_name" placeholder="First Name">
+            							<input type="text" v-validate="'required|alpha'" class="form-control" name="first_name" v-model="client.first_name" placeholder="First Name">
+            							<span v-show="errors.has('first_name')" class="help-block text-danger">{{ errors.first('first_name') }}</span>
             						</div>
-            						<div class="form-group" :class="{'has-error': errors.has('client.email') }">
+            						<div class="form-group" :class="{'has-error': errors.has('email') }">
             							<label for="email">Email</label>
-            							<input type="email" v-validate="'required|client.email'" class="form-control" name="email" v-model="client.email" placeholder="Email">
-            							<span v-show="errors.has('client.email')" class="help is-danger">{{ errors.first('client.email') }}</span>
+            							<input type="email" v-validate="'required|email'" class="form-control" name="email" v-model="client.email" placeholder="Email">
+            							<span v-show="errors.has('email')" class="help-block text-danger">{{ errors.first('email') }}</span>
             						</div>
-            						<div class="form-group" :class="{'has-error': errors.has('client.phone') }">
+            						<div class="form-group" :class="{'has-error': errors.has('phone') }">
             							<label for="phone">Home Number</label>
-            							<input type="text" v-validate="'required|digits:{11}'" class="form-control" v-model="client.phone" placeholder="Home Number">
+            							<input type="text" v-validate="'required|numeric'" class="form-control" name="phone" v-model="client.phone" placeholder="Home Number">
+            							<span v-show="errors.has('phone')" class="help-block text-danger">{{ errors.first('phone') }}</span>
             						</div>
-            						<div class="form-group" :class="{'has-error': errors.has('client.mobile') }">
+            						<div class="form-group" :class="{'has-error': errors.has('mobile') }">
             							<label for="mobile">Mobile Number</label>
-            							<input type="text" v-validate="'required|digits:{11}'" class="form-control" v-model="client.mobile" placeholder="Mobile Number">
+            							<input type="text" v-validate="'required|numeric'" class="form-control" name="mobile" v-model="client.mobile" placeholder="Mobile Number">
+            							<span v-show="errors.has('mobile')" class="help-block text-danger">{{ errors.first('mobile') }}</span>
             						</div>
             					</div>
             					<div class="box-footer">
@@ -73,7 +77,6 @@ export default {
 		};
 	},
 	created() {
-		console.log(this.$route.params.id);
 		if (this.$route.params.id) {
 			let that = this;
 			axios.get('/client-load/' + this.$route.params.id).then((resp) => {
