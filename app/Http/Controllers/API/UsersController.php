@@ -32,6 +32,74 @@ class UsersController extends Controller
 		]);
 	}
 
+	public function create()
+	{
+		try {
+			$user = new User;
+	        $user->username = request('username');
+	        $user->email = request('email');
+	        $user->password = bcrypt(request('password'));
+	        $user->status = request('status', 'open');
+	        if ($user->status == 'open') {
+	        	$user->ip = null;
+	        } else {
+	        	$user->ip = request('ip');
+	        }
+	        $user->save();
+	        $user = User::find($user->id);
+	        $user->assignRole('staff');
+	        $user->save();
+	        return response()->json([
+				'user' => $user,
+			]);
+	    } catch(Exception $e) {
+			return response()->json([
+				'error' => $e->getMessage(),
+			]);
+		}
+	}
+
+	public function update($id)
+	{
+		try {
+			$user = User::find($id);
+			$user->username = request('username');
+	        $user->email = request('email');
+	        $user->password = bcrypt(request('password'));
+	        $user->status = request('status', 'open');
+	        if ($user->status == 'open') {
+	        	$user->ip = null;
+	        } else {
+	        	$user->ip = request('ip');
+	        }
+	        $user->save();
+	        $user = User::find($user->id);
+	        $user->assignRole('staff');
+	        $user->save();
+	        return response()->json([
+				'user' => $user,
+			]);
+		} catch(Exception $e) {
+			return response()->json([
+				'error' => $e->getMessage(),
+			]);
+		}
+	}
+
+	public function loadUser($id)
+	{
+		try {
+			$user = User::find($id);
+			return response()->json([
+				'user' => $user,
+			]);
+		} catch(Exception $e) {
+			return response()->json([
+				'error' => $e->getMessage(),
+			]);
+		}
+	}
+
 	public function stylists()
 	{
 		$orderField = request('sort', 'id');

@@ -25,7 +25,7 @@ export default {
 		editItem() {
 			let path = this.$parent.xprops.editPath;
 			let params = {
-				id: this.row.client_id
+				id: (this.row.client_id ? this.row.client_id : this.row.id)
 			};
 			console.log(path, params);
 			this.$router.push({ name: path, params: params});

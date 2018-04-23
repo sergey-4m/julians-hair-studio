@@ -18,6 +18,7 @@ import Home from './components/Home.vue';
 import ClientProfile from './components/ClientProfile.vue';
 import ClientForm from './components/ClientForm.vue';
 import EntryForm from './components/EntryForm.vue';
+import UserForm from './components/UserForm.vue';
 import Users from './components/Users.vue';
 import Stylists from './components/Stylists.vue';
 import Login from './components/Login.vue';
@@ -107,10 +108,16 @@ const router = new VueRouter({
 	}, {
 		path: '/users-add',
 		name: 'users_create',
-		component: Users,
+		component: UserForm,
 		meta: {
-			auth: true,
-			form: true
+			auth: true
+		}
+	}, {
+		path: '/users-edit/:id',
+		name: 'users_edit',
+		component: UserForm,
+		meta: {
+			auth: true
 		}
 	}],
 	linkActiveClass: 'active'
