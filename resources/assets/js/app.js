@@ -23,7 +23,7 @@ import Users from './components/Users.vue';
 import Stylists from './components/Stylists.vue';
 import Login from './components/Login.vue';
 
-axios.defaults.baseURL = 'http://julians-hair-studio.loc/api';
+axios.defaults.baseURL = 'http://4m-team.com/api';
 
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
