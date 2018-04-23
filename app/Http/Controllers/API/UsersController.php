@@ -73,9 +73,6 @@ class UsersController extends Controller
 	        	$user->ip = request('ip');
 	        }
 	        $user->save();
-	        $user = User::find($user->id);
-	        $user->assignRole('staff');
-	        $user->save();
 	        return response()->json([
 				'user' => $user,
 			]);
