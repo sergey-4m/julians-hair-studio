@@ -21,17 +21,18 @@
             							<label for="first_name">First Name</label>
             							<input type="text" class="form-control" v-model="client.first_name" placeholder="First Name">
             						</div>
-            						<div class="form-group">
+            						<div class="form-group" :class="{'has-error': errors.has('client.email') }">
             							<label for="email">Email</label>
-            							<input type="email" class="form-control" v-model="client.email" placeholder="Email">
+            							<input type="email" v-validate="'required|client.email'" class="form-control" name="email" v-model="client.email" placeholder="Email">
+            							<span v-show="errors.has('client.email')" class="help is-danger">{{ errors.first('client.email') }}</span>
             						</div>
-            						<div class="form-group">
+            						<div class="form-group" :class="{'has-error': errors.has('client.phone') }">
             							<label for="phone">Home Number</label>
-            							<input type="text" class="form-control" v-model="client.phone" placeholder="Home Number">
+            							<input type="text" v-validate="'required|digits:{11}'" class="form-control" v-model="client.phone" placeholder="Home Number">
             						</div>
-            						<div class="form-group">
+            						<div class="form-group" :class="{'has-error': errors.has('client.mobile') }">
             							<label for="mobile">Mobile Number</label>
-            							<input type="text" class="form-control" v-model="client.mobile" placeholder="Mobile Number">
+            							<input type="text" v-validate="'required|digits:{11}'" class="form-control" v-model="client.mobile" placeholder="Mobile Number">
             						</div>
             					</div>
             					<div class="box-footer">
@@ -87,12 +88,16 @@ export default {
 	},
 	methods: {
 		submitData() {
-			let router = this.$router;
-			let apiPath = (this.$route.params.id) ? '/client-update/' + this.$route.params.id : '/client-create' ; 
-			axios.post(apiPath, this.client).then((resp) => {
-				console.log(resp);
-				if (resp.data.client) {
-					router.push({name: 'client_service_records', params: {id: resp.data.client.id}});
+			this.$validator.validateAll().then((result) => {
+				if (result) {
+					let router = this.$router;
+					let apiPath = (this.$route.params.id) ? '/client-update/' + this.$route.params.id : '/client-create' ; 
+					axios.post(apiPath, this.client).then((resp) => {
+						console.log(resp);
+						if (resp.data.client) {
+							router.push({name: 'client_service_records', params: {id: resp.data.client.id}});
+						}
+					});
 				}
 			});
 		}

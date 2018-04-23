@@ -29,14 +29,14 @@
 	        							<label>Repeat password:</label>
 	        							<input type="password" class="form-control" id="c_password" v-model="user.c_password">
 	        						</div>
-	        						<div class="form-group" v-if="!isNew">
+	        						<div class="form-group">
 	        							<label>Status:</label>
 	        							<select class="form-control" id="status" v-model="user.status">
 	        								<option value="open">Open</option>
 	        								<option value="locked">Locked</option>
 	        							</select>
 	        						</div>
-	        						<div class="form-group" v-if="!isNew">
+	        						<div class="form-group">
 	        							<label>IP Address (If locked):</label>
 	        							<input type="text" class="form-control" id="ip" v-model="user.ip">
 	        						</div>

@@ -5,6 +5,7 @@ window.jQuery = require('jquery');
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import VeeValidate from 'vee-validate';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import VueAuth from '@websanova/vue-auth';
@@ -31,6 +32,7 @@ axios.defaults.baseURL = 'http://julians-hair-studio.loc/api';
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
 Vue.use(Datatable);
+Vue.use(VeeValidate);
 
 Vue.component('app-header', AppHeader);
 Vue.component('app-footer', AppFooter);
