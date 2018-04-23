@@ -30710,11 +30710,11 @@ var render = function() {
                   "div",
                   { staticClass: "box-body box-profile" },
                   [
-                    _c("img", {
+                    _c("span", {
                       staticClass: "profile-user-img img-responsive img-circle",
                       attrs: {
-                        src: "./img/user4-128x128.jpg",
-                        alt: "User profile picture"
+                        "data-letters":
+                          _vm.client.first_name[0] + _vm.client.last_name[0]
                       }
                     }),
                     _vm._v(" "),
@@ -32315,84 +32315,79 @@ var render = function() {
                         })
                       ]),
                       _vm._v(" "),
-                      !_vm.isNew
-                        ? _c("div", { staticClass: "form-group" }, [
-                            _c("label", [_vm._v("Status:")]),
-                            _vm._v(" "),
-                            _c(
-                              "select",
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Status:")]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
                               {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.user.status,
-                                    expression: "user.status"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: { id: "status" },
-                                on: {
-                                  change: function($event) {
-                                    var $$selectedVal = Array.prototype.filter
-                                      .call($event.target.options, function(o) {
-                                        return o.selected
-                                      })
-                                      .map(function(o) {
-                                        var val =
-                                          "_value" in o ? o._value : o.value
-                                        return val
-                                      })
-                                    _vm.$set(
-                                      _vm.user,
-                                      "status",
-                                      $event.target.multiple
-                                        ? $$selectedVal
-                                        : $$selectedVal[0]
-                                    )
-                                  }
-                                }
-                              },
-                              [
-                                _c("option", { attrs: { value: "open" } }, [
-                                  _vm._v("Open")
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "locked" } }, [
-                                  _vm._v("Locked")
-                                ])
-                              ]
-                            )
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      !_vm.isNew
-                        ? _c("div", { staticClass: "form-group" }, [
-                            _c("label", [_vm._v("IP Address (If locked):")]),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.user.ip,
-                                  expression: "user.ip"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: { type: "text", id: "ip" },
-                              domProps: { value: _vm.user.ip },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(_vm.user, "ip", $event.target.value)
-                                }
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.user.status,
+                                expression: "user.status"
                               }
-                            })
-                          ])
-                        : _vm._e()
+                            ],
+                            staticClass: "form-control",
+                            attrs: { id: "status" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.user,
+                                  "status",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("option", { attrs: { value: "open" } }, [
+                              _vm._v("Open")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "locked" } }, [
+                              _vm._v("Locked")
+                            ])
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("IP Address (If locked):")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.user.ip,
+                              expression: "user.ip"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", id: "ip" },
+                          domProps: { value: _vm.user.ip },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.user, "ip", $event.target.value)
+                            }
+                          }
+                        })
+                      ])
                     ]),
                     _vm._v(" "),
                     _vm._m(0)

@@ -11,7 +11,7 @@
             		<div class="col-md-3">
             			<div class="box box-primary">
             				<div class="box-body box-profile">
-            					<img class="profile-user-img img-responsive img-circle" :src="'./img/user4-128x128.jpg'" alt="User profile picture">
+            					<span class="profile-user-img img-responsive img-circle" :data-letters="client.first_name[0] + client.last_name[0]"></span>
             					<h3 class="profile-username text-center">{{ client.first_name }} {{ client.last_name }}</h3>
             					<ul class="list-group list-group-unbordered">
             						<li class="list-group-item">

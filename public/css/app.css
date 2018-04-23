@@ -3053,3 +3053,23 @@
   clip: auto;
 }
 
+span[data-letters] {
+  width: 6em !important;
+  height: 6em !important;
+}
+
+[data-letters]:before {
+  content: attr(data-letters);
+  display: inline-block;
+  font-size: 3.8em;
+  width: 1.25em;
+  height: 1.7em;
+  line-height: 1.4em;
+  text-align: center;
+  border-radius: 50%;
+  background: transparent;
+  vertical-align: middle;
+  margin-right: 3em;
+  color: #3c8dbc;
+}
+
