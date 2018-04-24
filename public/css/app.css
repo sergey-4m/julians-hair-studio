@@ -3053,6 +3053,11 @@
   clip: auto;
 }
 
+html,
+body {
+  height: 100% !important;
+}
+
 span[data-letters] {
   width: 6em !important;
   height: 6em !important;

@@ -12772,6 +12772,12 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -12846,7 +12852,6 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 			var params = {
 				id: this.row.client_id ? this.row.client_id : this.row.id
 			};
-			console.log(path, params);
 			this.$router.push({ name: path, params: params });
 		},
 		deleteItem: function deleteItem() {
@@ -12856,9 +12861,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 			$('#modal-confirm').on('show.bs.modal', function (event) {
 				$(event.currentTarget).find('.modal-footer #confirm-delete').on('click', function () {
 					axios.post(apiPath).then(function (resp) {
-						console.log(resp.status);
 						if (resp.data.status == 'ok') {
-							router.push({ name: redirectPath });
+							router.push({ name: redirectPath, query: { search: '' } });
 						}
 					});
 					$('#modal-confirm').modal('hide');
@@ -12875,6 +12879,15 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__comps_DetailsChallenge__ = __webpack_require__(20);
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -12911,7 +12924,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
             total: 0,
             query: {},
             xprops: {
-                apiUri: '/service-items',
+                apiUri: '/service-item',
                 redirectPath: 'service_items',
                 editPath: 'service_items_edit'
             }
@@ -12919,14 +12932,35 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     },
     created: function created() {
         var that = this;
-        axios.get('/service-items').then(function (resp) {
+        axios.get('/service-item').then(function (resp) {
             if (resp.data.serviceItems) {
                 that.data = resp.data.serviceItems;
+                that.total = resp.data.total;
             }
         });
     },
 
-    methods: {}
+    watch: {
+        query: {
+            handler: function handler(query) {
+                this.$router.push({ query: query });
+            },
+
+            deep: true
+        },
+        '$route.query': function $routeQuery(query) {
+            var _this = this;
+
+            axios.get('/service-item', query).then(function (resp) {
+                _this.data = resp.data.serviceItems;
+                _this.total = resp.data.total;
+
+                _this.$nextTick(function () {
+                    _this.selection = [].concat(_toConsumableArray(_this.data));
+                });
+            });
+        }
+    }
 });
 
 /***/ }),
@@ -13555,6 +13589,9 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["a"] = ({
 	data: function data() {
@@ -13568,7 +13605,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 				ip: ''
 			},
 			c_password: '',
-			isNew: false
+			isNew: false,
+			apiError: false
 		};
 	},
 	created: function created() {
@@ -13594,6 +13632,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 					axios.post(apiPath, _this.user).then(function (resp) {
 						if (resp.data.user) {
 							router.push({ name: 'users_list' });
+						} else if (resp.data.error) {
+							_this.apiError = resp.data.error;
 						}
 					});
 				}
@@ -13610,6 +13650,14 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__comps_DetailsChallenge__ = __webpack_require__(20);
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -13651,6 +13699,16 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
             }
         };
     },
+    created: function created() {
+        var that = this;
+        axios.post('/users-list').then(function (resp) {
+            if (resp.data.serviceItems) {
+                that.data = resp.data.data.rows;
+                that.total = resp.data.data.total;
+            }
+        });
+    },
+
     watch: {
         query: {
             handler: function handler(query) {
@@ -13682,6 +13740,12 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__comps_DetailsChallenge__ = __webpack_require__(20);
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -30467,7 +30531,7 @@ var render = function() {
       "a",
       {
         staticClass: "btn btn-default",
-        attrs: { title: "view details" },
+        attrs: { title: "edit" },
         on: {
           click: function($event) {
             _vm.editItem()
@@ -30475,6 +30539,20 @@ var render = function() {
         }
       },
       [_c("i", { staticClass: "fa fa-pencil" })]
+    ),
+    _vm._v(" "),
+    _c(
+      "a",
+      {
+        staticClass: "btn btn-danger",
+        attrs: { title: "delete" },
+        on: {
+          click: function($event) {
+            _vm.deleteItem()
+          }
+        }
+      },
+      [_c("i", { staticClass: "fa fa-times" })]
     )
   ])
 }
@@ -30514,7 +30592,37 @@ var render = function() {
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-xs-12" }, [
               _c("div", { staticClass: "box" }, [
-                _c("div", { staticClass: "box-header with-border" }),
+                _c("div", { staticClass: "box-header with-border" }, [
+                  _c("div", { staticClass: "col-md-3 col-md-offset-9" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.query.search,
+                            expression: "query.search"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          name: "filter",
+                          placeholder: "Search for..."
+                        },
+                        domProps: { value: _vm.query.search },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.query, "search", $event.target.value)
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                ]),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -30634,7 +30742,37 @@ var render = function() {
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-xs-12" }, [
               _c("div", { staticClass: "box" }, [
-                _c("div", { staticClass: "box-header with-border" }),
+                _c("div", { staticClass: "box-header with-border" }, [
+                  _c("div", { staticClass: "col-md-3 col-md-offset-9" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.query.search,
+                            expression: "query.search"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          name: "filter",
+                          placeholder: "Search for..."
+                        },
+                        domProps: { value: _vm.query.search },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.query, "search", $event.target.value)
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                ]),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -30647,6 +30785,8 @@ var render = function() {
           ])
         ])
       ]),
+      _vm._v(" "),
+      _c("confirm-modal"),
       _vm._v(" "),
       _c("app-footer")
     ],
@@ -32801,6 +32941,12 @@ var render = function() {
                   },
                   [
                     _c("div", { staticClass: "box-body" }, [
+                      _vm.apiError
+                        ? _c("div", { staticClass: "callout callout-danger" }, [
+                            _c("h4", [_vm._v(_vm._s(_vm.apiError))])
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
                       _c(
                         "div",
                         {
@@ -33261,20 +33407,42 @@ var render = function() {
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-xs-12" }, [
               _c("div", { staticClass: "box" }, [
+                _c("div", { staticClass: "box-header with-border" }, [
+                  _c("div", { staticClass: "col-md-3 col-md-offset-9" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.query.search,
+                            expression: "query.search"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          name: "filter",
+                          placeholder: "Search for..."
+                        },
+                        domProps: { value: _vm.query.search },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.query, "search", $event.target.value)
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
                 _c(
                   "div",
                   { staticClass: "box-body" },
-                  [
-                    _c(
-                      "datatable",
-                      _vm._b(
-                        { attrs: { filterable: "" } },
-                        "datatable",
-                        _vm.$data,
-                        false
-                      )
-                    )
-                  ],
+                  [_c("datatable", _vm._b({}, "datatable", _vm.$data, false))],
                   1
                 )
               ])
@@ -33282,6 +33450,8 @@ var render = function() {
           ])
         ])
       ]),
+      _vm._v(" "),
+      _c("confirm-modal"),
       _vm._v(" "),
       _c("app-footer")
     ],
@@ -33387,7 +33557,37 @@ var render = function() {
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-xs-12" }, [
               _c("div", { staticClass: "box" }, [
-                _c("div", { staticClass: "box-header with-border" }),
+                _c("div", { staticClass: "box-header with-border" }, [
+                  _c("div", { staticClass: "col-md-3 col-md-offset-9" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.query.search,
+                            expression: "query.search"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          name: "filter",
+                          placeholder: "Search for..."
+                        },
+                        domProps: { value: _vm.query.search },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.query, "search", $event.target.value)
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                ]),
                 _vm._v(" "),
                 _c(
                   "div",

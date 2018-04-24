@@ -10,7 +10,13 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="box">
-                            <div class="box-header with-border"></div>
+                            <div class="box-header with-border">
+                                <div class="col-md-3 col-md-offset-9">
+                                    <div class="form-group">
+                                        <input type="text" name="filter" class="form-control" placeholder="Search for..." v-model="query.search">
+                                    </div>
+                                </div>
+                            </div>
                             <div class="box-body">
                                 <datatable v-bind="$data" />
                             </div>
@@ -19,6 +25,7 @@
                 </div>
             </section>
         </div>
+        <confirm-modal />
         <app-footer />
     </div>
 </template>
@@ -38,7 +45,7 @@ export default {
             total: 0,
             query: {},
             xprops: {
-                apiUri: '/service-items',
+                apiUri: '/service-item',
                 redirectPath: 'service_items',
                 editPath: 'service_items_edit'
             }
@@ -46,14 +53,30 @@ export default {
 	},
     created() {
         let that = this;
-        axios.get('/service-items').then((resp) => {
+        axios.get('/service-item').then((resp) => {
             if (resp.data.serviceItems) {
                 that.data = resp.data.serviceItems;
+                that.total = resp.data.total;
             }
         });
     },
-    methods: {
+    watch: {
+        query: {
+            handler(query) {
+                this.$router.push({query});
+            },
+            deep: true
+        },
+        '$route.query' (query) {
+            axios.get('/service-item', query).then((resp) => {
+                this.data = resp.data.serviceItems;
+                this.total = resp.data.total;
 
+                this.$nextTick(() => {
+                    this.selection = [...this.data];
+                });
+            });
+        }
     }
 }
 </script>

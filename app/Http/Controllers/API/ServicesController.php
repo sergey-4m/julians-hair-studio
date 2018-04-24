@@ -13,28 +13,21 @@ class ServicesController extends Controller
 	public function records()
 	{
 		$total = \DB::table('services')->count();
-		$services = \DB::table('services')
+		$query = \DB::table('services')
 			->select('services.id', 'services.client_id', 'clients.first_name', 'clients.last_name', 'clients.email', 'clients.phone', 'clients.mobile')
 			->join('clients', 'clients.id', '=', 'services.client_id')
 			->offset(request('offset', 0))
 			->limit(request('limit', 20))
-			->orderBy('clients.'.request('sort', 'id'), request('order', 'asc'))
-			->get();
-		/*$total = \DB::table('users')
-			->join('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
-            ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-            ->where('roles.name', '=', 'client')->count();
-		$users = \DB::table('users')
-			->select(
-				'users.id', 'users.first_name', 'users.last_name', 'users.email', 'users.phone', 'users.mobile'
-			)
-			->join('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
-            ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-			->offset(request('offset', 0))
-			->limit(request('limit', 20))
-			->orderBy('users.'.request('sort', 'id'), request('order', 'asc'))
-			->where('roles.name', '=', 'client')
-			->get();*/
+			->orderBy('clients.'.request('sort', 'id'), request('order', 'asc'));
+		$filter = trim(request('search'));
+		if ($filter && $filter !== '') {
+			$query
+				->where('clients.first_name', 'like', $filter.'%')
+				->orWhere('clients.last_name', 'like', $filter.'%')
+				->orWhere('clients.email', 'like', $filter.'%');
+			$total = $query->count();
+		}
+		$services = $query->get();
 		$data = [
 			'rows' => $services,
 			'total' => $total,
@@ -167,8 +160,8 @@ class ServicesController extends Controller
 	public function delete($id)
 	{
 		try {
-			$user = User::find($id);
-			$user->delete();
+			$record = Client::find($id);
+			$record->delete();
 		} catch(Exception $e) {
 			return response()->json([
 				'error' => $e->getMessage(),

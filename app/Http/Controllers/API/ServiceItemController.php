@@ -15,8 +15,21 @@ class ServiceItemController extends Controller
     public function index()
     {
         $serviceItems = ServiceItem::all();
+        $total = \DB::table('service_items')->count();
+        $query = \DB::table('service_items')
+            ->offset(request('offset', 0))
+            ->limit(request('limit', 20))
+            ->orderBy('service_items.'.request('sort', 'id'), request('order', 'asc'));
+        $filter = trim(request('search'));
+        if ($filter && $filter !== '') {
+            $query
+                ->where('service_items.title', 'like', $filter.'%');
+            $total = $query->count();
+        }
+        $serviceItems = $query->get();
         return response()->json([
             'serviceItems' => $serviceItems,
+            'total' => $total,
         ]);
     }
 
@@ -106,11 +119,20 @@ class ServiceItemController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\ServiceItem  $serviceItem
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ServiceItem $serviceItem)
+    public function destroy($id)
     {
-        //
+        try {
+            $item = ServiceItem::find($id);
+            $item->delete();
+        } catch(Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+        return response()->json([
+            'status' => 'ok',
+        ]);
     }
 }

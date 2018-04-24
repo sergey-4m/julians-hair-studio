@@ -13,6 +13,9 @@
             				<div class="box-header with-border"></div>
             				<form role="form" @submit.prevent="submitData" method="post">
             					<div class="box-body">
+            						<div v-if="apiError" class="callout callout-danger">
+            							<h4>{{ apiError }}</h4>
+            						</div>
 	            					<div class="form-group" :class="{'has-error': errors.has('username') }">
 	        							<label>Username:</label>
 	        							<input type="text" v-validate="'required:true'" class="form-control" name="username" id="username" v-model="user.username">
@@ -72,7 +75,8 @@ export default {
 				ip: ''
 			},
 			c_password: '',
-			isNew: false
+			isNew: false,
+			apiError: false
 		};
 	},
 	created() {
@@ -95,6 +99,8 @@ export default {
 					axios.post(apiPath, this.user).then((resp) => {
 						if (resp.data.user) {
 							router.push({name:'users_list'});
+						} else if (resp.data.error) {
+							this.apiError = resp.data.error;
 						}
 					});
 				}

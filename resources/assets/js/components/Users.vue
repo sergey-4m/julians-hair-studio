@@ -10,14 +10,22 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="box">
+                            <div class="box-header with-border">
+                                <div class="col-md-3 col-md-offset-9">
+                                    <div class="form-group">
+                                        <input type="text" name="filter" class="form-control" placeholder="Search for..." v-model="query.search">
+                                    </div>
+                                </div>
+                            </div>
                             <div class="box-body">
-                                <datatable v-bind="$data" filterable/>
+                                <datatable v-bind="$data"/>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
         </div>
+        <confirm-modal />
         <app-footer />
     </div>
 </template>
@@ -44,6 +52,15 @@ export default {
             editPath: 'users_edit'
         }
     }),
+    created() {
+        let that = this;
+        axios.post('/users-list').then((resp) => {
+            if (resp.data.serviceItems) {
+                that.data = resp.data.data.rows;
+                that.total = resp.data.data.total;
+            }
+        });
+    },
     watch: {
         query: {
             handler(query) {

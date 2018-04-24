@@ -32,14 +32,16 @@ Route::group(['middleware' => 'auth:api'], function(){
 	Route::post('users-list', 'API\UsersController@list');
 	Route::post('user-create', 'API\UsersController@create');
 	Route::post('user-update/{id}', 'API\UsersController@update');
+	Route::post('user-update/delete/{id}', 'API\UsersController@delete');
 	Route::post('stylists-list', 'API\StylistsController@list');
 	Route::get('stylists-list', 'API\StylistsController@loadForSelect');
 	Route::get('stylists-records/{id}', 'API\StylistsController@load');
 	Route::post('stylists-records/create', 'API\StylistsController@create');
 	Route::post('stylists-records/update/{id}', 'API\StylistsController@update');
 	Route::post('stylists-records/delete/{id}', 'API\StylistsController@delete');
-	Route::get('service-items', 'API\ServiceItemController@index');
+	Route::get('service-item', 'API\ServiceItemController@index');
 	Route::get('service-item/{id}', 'API\ServiceItemController@show');
 	Route::post('service-item/create', 'API\ServiceItemController@create');
 	Route::post('service-item/update/{id}', 'API\ServiceItemController@update');
+	Route::post('service-item/delete/{id}', 'API\ServiceItemController@destroy');
 });

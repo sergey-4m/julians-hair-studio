@@ -1,11 +1,11 @@
 <template>
 	<div class="btn-group btn-group-sm">
-		<a @click="editItem()" class="btn btn-default" title="view details">
+		<a @click="editItem()" class="btn btn-default" title="edit">
 			<i class="fa fa-pencil"></i>
 		</a>
-		<!--a @click="deleteItem()" class="btn btn-danger" title="view details">
+		<a @click="deleteItem()" class="btn btn-danger" title="delete">
 			<i class="fa fa-times"></i>
-		</a-->
+		</a>
 	</div>
 </template>
 
@@ -27,7 +27,6 @@ export default {
 			let params = {
 				id: (this.row.client_id ? this.row.client_id : this.row.id)
 			};
-			console.log(path, params);
 			this.$router.push({ name: path, params: params});
 		},
 		deleteItem() {
@@ -37,9 +36,8 @@ export default {
 			$('#modal-confirm').on('show.bs.modal', (event) => {
 				$(event.currentTarget).find('.modal-footer #confirm-delete').on('click', () => {
 					axios.post(apiPath).then((resp) => {
-						console.log(resp.status);
 						if (resp.data.status == 'ok') {
-							router.push({name: redirectPath});
+							router.push({name: redirectPath, query: {search: ''}});
 						}
 					});
 					$('#modal-confirm').modal('hide');
