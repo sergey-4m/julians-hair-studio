@@ -12932,7 +12932,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     },
     created: function created() {
         var that = this;
-        axios.get('/service-item').then(function (resp) {
+        axios.post('/service-item').then(function (resp) {
             if (resp.data.serviceItems) {
                 that.data = resp.data.serviceItems;
                 that.total = resp.data.total;
@@ -12951,7 +12951,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
         '$route.query': function $routeQuery(query) {
             var _this = this;
 
-            axios.get('/service-item', query).then(function (resp) {
+            axios.post('/service-item', query).then(function (resp) {
                 _this.data = resp.data.serviceItems;
                 _this.total = resp.data.total;
 
@@ -13410,7 +13410,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 				that.stylists = resp.data.stylists;
 			}
 		});
-		axios.get('/service-items').then(function (resp) {
+		axios.get('/service-item').then(function (resp) {
 			if (resp.data.serviceItems) {
 				that.serviceItems = resp.data.serviceItems;
 			}
@@ -32753,8 +32753,8 @@ var render = function() {
                               {
                                 name: "validate",
                                 rawName: "v-validate",
-                                value: "required|alpha_num",
-                                expression: "'required|alpha_num'"
+                                value: "required:true",
+                                expression: "'required:true'"
                               },
                               {
                                 name: "model",

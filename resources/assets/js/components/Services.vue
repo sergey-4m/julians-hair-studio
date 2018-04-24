@@ -53,7 +53,7 @@ export default {
 	},
     created() {
         let that = this;
-        axios.get('/service-item').then((resp) => {
+        axios.post('/service-item').then((resp) => {
             if (resp.data.serviceItems) {
                 that.data = resp.data.serviceItems;
                 that.total = resp.data.total;
@@ -68,7 +68,7 @@ export default {
             deep: true
         },
         '$route.query' (query) {
-            axios.get('/service-item', query).then((resp) => {
+            axios.post('/service-item', query).then((resp) => {
                 this.data = resp.data.serviceItems;
                 this.total = resp.data.total;
 

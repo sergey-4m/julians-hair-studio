@@ -112,7 +112,7 @@ export default {
 				that.stylists = resp.data.stylists;
 			}
 		});
-        axios.get('/service-items').then((resp) => {
+        axios.get('/service-item').then((resp) => {
             if (resp.data.serviceItems) {
                 that.serviceItems = resp.data.serviceItems;
             }

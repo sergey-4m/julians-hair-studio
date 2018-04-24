@@ -39,7 +39,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 	Route::post('stylists-records/create', 'API\StylistsController@create');
 	Route::post('stylists-records/update/{id}', 'API\StylistsController@update');
 	Route::post('stylists-records/delete/{id}', 'API\StylistsController@delete');
-	Route::get('service-item', 'API\ServiceItemController@index');
+	Route::any('service-item', 'API\ServiceItemController@index');
 	Route::get('service-item/{id}', 'API\ServiceItemController@show');
 	Route::post('service-item/create', 'API\ServiceItemController@create');
 	Route::post('service-item/update/{id}', 'API\ServiceItemController@update');

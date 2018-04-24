@@ -15,7 +15,7 @@
                                 <div class="box-body">
                                     <div class="form-group" :class="{'has-error': errors.has('title') }">
                                         <label>Service Name</label>
-                                        <input type="text" v-validate="'required|alpha_num'" class="form-control" name="title" v-model="service.title" placeholder="Service Name">
+                                        <input type="text" v-validate="'required:true'" class="form-control" name="title" v-model="service.title" placeholder="Service Name">
                                         <span v-show="errors.has('title')" class="help-block text-danger">{{ errors.first('title') }}</span>
                                     </div>
                                 </div>
