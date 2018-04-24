@@ -20286,6 +20286,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["a"] = ({
 	data: function data() {
@@ -20320,7 +20321,21 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 	methods: {
 		addEntry: function addEntry() {},
-		deleteRecord: function deleteRecord() {}
+		deleteRecord: function deleteRecord() {
+			var apiPath = '/service-records/delete/' + this.$route.params.id;
+			var router = this.$router;
+			$('#modal-confirm').on('show.bs.modal', function (event) {
+				$(event.currentTarget).find('.modal-footer #confirm-delete').on('click', function () {
+					axios.post(apiPath).then(function (resp) {
+						if (resp.data.status == 'ok') {
+							router.push({ name: 'home' });
+						}
+					});
+					$('#modal-confirm').modal('hide');
+				});
+			});
+			$('#modal-confirm').modal('show');
+		}
 	}
 });
 
@@ -30983,7 +30998,7 @@ var render = function() {
                     _c(
                       "a",
                       {
-                        staticClass: "btn btn-primary btn-block",
+                        staticClass: "btn btn-danger btn-block",
                         attrs: { href: "#" },
                         on: { click: _vm.deleteRecord }
                       },
@@ -31010,6 +31025,8 @@ var render = function() {
           ])
         ])
       ]),
+      _vm._v(" "),
+      _c("confirm-modal"),
       _vm._v(" "),
       _c("app-footer")
     ],

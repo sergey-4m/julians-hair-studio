@@ -20,12 +20,12 @@ span[data-letters] {
 	content: attr(data-letters);
     display: inline-block;
     font-size: 3.8em;
-    width: 1.25em;
+    width: 1.4em;
     height: 1.7em;
     line-height: 1.4em;
     text-align: center;
     border-radius: 50%;
-    background: #eee;
+    background: transparent /*#eee*/;
     vertical-align: middle;
     margin-right: 3em;
     color: #3c8dbc;

@@ -30,7 +30,7 @@
             					<router-link :to="{name: 'client_records_edit', params: {client: client.id}}" class="btn btn-primary btn-block">
             						<b>Edit details</b>
             					</router-link>
-            					<a href="#" @click="deleteRecord" class="btn btn-primary btn-block">
+            					<a href="#" @click="deleteRecord" class="btn btn-danger btn-block">
             						<b>Delete</b>
             					</a>
             				</div>
@@ -47,6 +47,7 @@
             	</div>
             </section>
         </div>
+        <confirm-modal />
         <app-footer />
     </div>
 </template>
@@ -95,7 +96,19 @@ export default {
 		addEntry() {
 		},
 		deleteRecord() {
-			
+			let apiPath = '/service-records/delete/' + this.$route.params.id;
+			let router = this.$router;
+			$('#modal-confirm').on('show.bs.modal', (event) => {
+				$(event.currentTarget).find('.modal-footer #confirm-delete').on('click', () => {
+					axios.post(apiPath).then((resp) => {
+						if (resp.data.status == 'ok') {
+							router.push({name: 'home'});
+						}
+					});
+					$('#modal-confirm').modal('hide');
+				});
+			});
+			$('#modal-confirm').modal('show');
 		}
 	}
 }
