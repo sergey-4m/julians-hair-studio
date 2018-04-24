@@ -63,6 +63,8 @@
 </template>
 
 <script>
+import { Validator } from 'vee-validate';
+
 export default {
 	data() {
 		return {
@@ -81,6 +83,14 @@ export default {
 	},
 	created() {
 		this.isNew = this.$route.params.id ? false : true;
+		const dictionary = {
+			en: {
+				attributes: {
+					c_password: 'password'
+				}
+			}
+		};
+		Validator.localize(dictionary);
 		if (!this.isNew) {
 			let that = this;
 			axios.get('/user/' + this.$route.params.id).then((resp) => {

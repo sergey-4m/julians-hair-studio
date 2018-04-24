@@ -30,6 +30,9 @@
             					<router-link :to="{name: 'client_records_edit', params: {client: client.id}}" class="btn btn-primary btn-block">
             						<b>Edit details</b>
             					</router-link>
+            					<a href="#" @click="deleteRecord" class="btn btn-primary btn-block">
+            						<b>Delete</b>
+            					</a>
             				</div>
             			</div>
             		</div>
@@ -90,10 +93,9 @@ export default {
 	},
 	methods: {
 		addEntry() {
-			//this.$router.push({name: 'client_service_records_add', client: this.$route.params.id});
-			/*axios.post('/client-records/' + this.$route.params.id + '/add').then((resp) => {
-				console.log(resp);
-			});*/
+		},
+		deleteRecord() {
+			
 		}
 	}
 }
